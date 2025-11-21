@@ -23,39 +23,72 @@ const imagenes = [
 export default function Inicio() {
   const [index, setIndex] = useState(0);
 
-  // Lógica para cambiar la imagen del carrusel cada 5 segundos
+  // Para crossfade entre imágenes
+  const [prevIndex, setPrevIndex] = useState(null);
+  const [loaded, setLoaded] = useState(false);
+
+  // Precargar imágenes y marcar cuando estén listas
   useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % imagenes.length);
-    }, 5000);
-    return () => clearInterval(interval);
+    let cargadas = 0;
+    imagenes.forEach((img) => {
+      const i = new Image();
+      i.src = img.src;
+      i.onload = () => {
+        cargadas += 1;
+        if (cargadas === imagenes.length) setLoaded(true);
+      };
+      i.onerror = () => {
+        cargadas += 1;
+        if (cargadas === imagenes.length) setLoaded(true);
+      };
+    });
   }, []);
 
   return (
     <div className="container-fluid p-0">
       
       <section className="position-relative overflow-hidden" style={{ height: "70vh" }}>
-        <img
-          src={imagenes[index].src}
-          alt={imagenes[index].alt}
-          className="d-block w-100 h-100 object-cover transition-opacity duration-1000"
-          style={{ opacity: 1, transition: 'opacity 1s ease-in-out' }}
-          loading="lazy"
-          onError={(e) => {
-            console.warn('Imagen no encontrada:', imagenes[index].src);
-            
-            e.currentTarget.src = '/carrusel/placeholder.jpg';
-          }}
-        />
-        <div className="position-absolute top-0 start-0 w-100 h-100 bg-black opacity-50"></div>
-        
-        <div className="position-absolute top-50 start-50 translate-middle text-white text-center p-3">
-          <h1 className="display-4 fw-bold mb-3">
-            <span className="text-brand-primary">Kareh:</span> Tu Camino a la Recuperación
-          </h1>
-          <p className="lead mb-4">
-            Centro integral de rehabilitación y productos ortopédicos de alta calidad.
-          </p>
+        <div id="carouselInicio" className="carousel slide carousel-fade h-100" data-bs-ride="carousel">
+          <div className="carousel-indicators">
+            {imagenes.map((img, i) => (
+              <button
+                key={img.id}
+                type="button"
+                data-bs-target="#carouselInicio"
+                data-bs-slide-to={i}
+                className={i === 0 ? 'active' : ''}
+                aria-current={i === 0 ? 'true' : undefined}
+                aria-label={`Slide ${i + 1}`}
+              />
+            ))}
+          </div>
+
+          <div className="carousel-inner h-100">
+            {imagenes.map((img, i) => (
+              <div key={img.id} className={`carousel-item h-100 ${i === 0 ? 'active' : ''}`}>
+                <img
+                  src={img.src}
+                  className="d-block w-100 carousel-image"
+                  alt={img.alt}
+                  loading="lazy"
+                  onError={(e) => { e.currentTarget.src = '/carrusel/placeholder.jpg'; }}
+                />
+                <div className="carousel-caption d-none d-md-block">
+                  <h1 className="display-4 fw-bold mb-3">Kareh: Tu Camino a la Recuperación</h1>
+                  <p className="lead">Centro integral de rehabilitación y productos ortopédicos de alta calidad.</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <button className="carousel-control-prev" type="button" data-bs-target="#carouselInicio" data-bs-slide="prev">
+            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span className="visually-hidden">Anterior</span>
+          </button>
+          <button className="carousel-control-next" type="button" data-bs-target="#carouselInicio" data-bs-slide="next">
+            <span className="carousel-control-next-icon" aria-hidden="true"></span>
+            <span className="visually-hidden">Siguiente</span>
+          </button>
         </div>
       </section>
 

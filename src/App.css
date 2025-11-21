@@ -1,0 +1,165 @@
+/* Carousel responsive image sizing */
+.carousel-image {
+	height: 70vh;
+	object-fit: cover;
+}
+
+/* Caption adjustments for readability */
+.carousel-caption h1 {
+	text-shadow: 0 2px 8px rgba(0,0,0,0.45);
+}
+
+/* Tablets */
+@media (max-width: 991.98px) {
+	.carousel-image {
+		height: 50vh;
+	}
+	.carousel-caption h1 {
+		font-size: 1.75rem;
+	}
+}
+
+/* Mobile phones */
+@media (max-width: 575.98px) {
+	.carousel-image {
+		height: 40vh;
+	}
+	.carousel-caption {
+		bottom: 15%;
+		padding: 0 1rem;
+	}
+	.carousel-caption h1 {
+		font-size: 1.25rem;
+	}
+	.carousel-caption p {
+		font-size: 0.95rem;
+	}
+}
+
+/* Product card minor polish to match palette */
+.card {
+	border-radius: 10px;
+}
+
+/* Image box: fixed aspect ratio for product cards */
+.image-box {
+	width: 100%;
+	aspect-ratio: 16 / 9;
+	overflow: hidden;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	background-color: #f8f9fa; /* fallback color */
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover; /* crop consistently */
+	display: block;
+}
+
+/* Product image element: use object-fit to crop and keep aspect ratio */
+.product-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: #f8f9fa;
+}
+
+/* Make card clip image corners and keep a tidy layout */
+.card {
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+}
+
+.card-body {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.card-title {
+	font-size: 1.05rem;
+	line-height: 1.1;
+}
+
+/* Keep descriptions limited so cards align */
+.card-text {
+	max-height: 4.6rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* Buttons area fixed at bottom so cards keep same height */
+.card .actions {
+	margin-top: auto;
+}
+
+/* Image wrapper and placeholder for smooth loading */
+.image-wrapper{
+	position: relative;
+	width: 100%;
+	aspect-ratio: 16 / 9;
+	overflow: hidden;
+}
+
+.image-placeholder{
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(90deg, #f0f4f3 0%, #e9efee 50%, #f0f4f3 100%);
+	background-size: 200% 100%;
+	animation: shimmer 1.2s linear infinite;
+}
+
+.image-placeholder.hidden{
+	display: none;
+}
+
+.product-image{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+	opacity: 0;
+	transition: opacity 300ms ease-in-out, transform 300ms ease;
+}
+
+.product-image.loaded{
+	opacity: 1;
+}
+
+@keyframes shimmer{
+	0%{ background-position: -200% 0; }
+	100%{ background-position: 200% 0; }
+}
+
+/* show light border and subtle shadow for a neat thumbnail */
+.card {
+	border: 1px solid rgba(0,0,0,0.06);
+	box-shadow: 0 6px 18px rgba(10,20,20,0.04);
+}
+
+/* Ensure carousel images fully cover their area and resize responsively */
+.carousel .carousel-inner,
+.carousel .carousel-item,
+.carousel .carousel-item img {
+	height: 70vh;
+}
+
+@media (max-width: 991.98px) {
+	.carousel .carousel-inner,
+	.carousel .carousel-item,
+	.carousel .carousel-item img {
+		height: 50vh;
+	}
+}
+
+@media (max-width: 575.98px) {
+	.carousel .carousel-inner,
+	.carousel .carousel-item,
+	.carousel .carousel-item img {
+		height: 40vh;
+	}
+}
+
