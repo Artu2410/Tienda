@@ -36,111 +36,191 @@
 	}
 }
 
-/* Product card minor polish to match palette */
-.card {
-	border-radius: 10px;
-}
-
-/* Image box: fixed aspect ratio for product cards */
-.image-box {
-	width: 100%;
-	aspect-ratio: 16 / 9;
-	overflow: hidden;
-	border-top-left-radius: 10px;
-	border-top-right-radius: 10px;
-	background-color: #f8f9fa; /* fallback color */
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover; /* crop consistently */
-	display: block;
-}
-
-/* Product image element: use object-fit to crop and keep aspect ratio */
-.product-image {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    display: block;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    background-color: #f8f9fa;
-}
-
-/* Make card clip image corners and keep a tidy layout */
+/* Product card polish and styling */
 .card {
 	overflow: hidden;
 	display: flex;
 	flex-direction: column;
+	border: 1px solid rgba(0,0,0,0.08);
+	box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+	border-radius: 12px;
+	transition: box-shadow 0.3s ease, transform 0.3s ease;
+	height: 100%;
+	background-color: #ffffff;
 }
 
+.card:hover {
+	box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+	transform: translateY(-2px);
+}
+
+/* Image wrapper - CONTENEDOR PRINCIPAL DE IMAGEN */
+.image-wrapper {
+	position: relative;
+	width: 100%;
+	height: 280px;
+	overflow: hidden;
+	border-top-left-radius: 12px;
+	border-top-right-radius: 12px;
+	background-color: #f5f5f5;
+	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Placeholder shimmer effect mientras carga */
+.image-placeholder {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(90deg, #e8e8e8 0%, #f0f0f0 50%, #e8e8e8 100%);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s ease-in-out infinite;
+	z-index: 1;
+}
+
+.image-placeholder.hidden {
+	display: none;
+}
+
+/* Imagen del producto - ESTILOS PRINCIPALES */
+.product-image {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	object-position: center;
+	display: block;
+	opacity: 0;
+	transition: opacity 0.4s ease-in-out;
+	z-index: 2;
+	padding: 10px;
+	box-sizing: border-box;
+}
+
+.product-image.loaded {
+	opacity: 1;
+}
+
+/* Animación shimmer */
+@keyframes shimmer {
+	0% {
+		background-position: -200% 0;
+	}
+	50% {
+		background-position: 200% 0;
+	}
+	100% {
+		background-position: 200% 0;
+	}
+}
+
+/* Card body - contenido de texto */
 .card-body {
 	display: flex;
 	flex-direction: column;
-	gap: 0.5rem;
+	gap: 0.75rem;
+	flex-grow: 1;
+	padding: 1.25rem 1rem;
+	background-color: #ffffff;
 }
 
 .card-title {
 	font-size: 1.05rem;
-	line-height: 1.1;
-}
-
-/* Keep descriptions limited so cards align */
-.card-text {
-	max-height: 4.6rem;
+	font-weight: 600;
+	line-height: 1.3;
+	margin: 0;
+	color: #212529;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	line-clamp: 2;
+	-webkit-box-orient: vertical;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
 
-/* Buttons area fixed at bottom so cards keep same height */
+/* Descripciones de productos */
+.card-text {
+	font-size: 0.9rem;
+	color: #6c757d;
+	margin: 0;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	line-height: 1.4;
+	text-overflow: ellipsis;
+}
+
+.card-text.fw-bold {
+	font-weight: 600;
+	color: #28a745;
+	font-size: 1.1rem;
+	-webkit-line-clamp: unset;
+	line-clamp: unset;
+}
+
+/* Botones área - fija al fondo */
 .card .actions {
 	margin-top: auto;
+	display: flex;
+	gap: 0.5rem;
+	flex-wrap: wrap;
 }
 
-/* Image wrapper and placeholder for smooth loading */
-.image-wrapper{
-	position: relative;
-	width: 100%;
-	aspect-ratio: 16 / 9;
-	overflow: hidden;
+.card .btn {
+	flex: 1;
+	min-width: 100px;
+	padding: 0.5rem 0.75rem;
+	font-size: 0.9rem;
+	border-radius: 6px;
+	transition: all 0.2s ease;
+	border: none;
+	cursor: pointer;
 }
 
-.image-placeholder{
-	position: absolute;
-	inset: 0;
-	background: linear-gradient(90deg, #f0f4f3 0%, #e9efee 50%, #f0f4f3 100%);
-	background-size: 200% 100%;
-	animation: shimmer 1.2s linear infinite;
+.card .btn-outline-secondary {
+	color: #6c757d;
+	border: 1px solid #6c757d;
 }
 
-.image-placeholder.hidden{
-	display: none;
+.card .btn-outline-secondary:hover {
+	color: #fff;
+	background-color: #6c757d;
+	border-color: #6c757d;
 }
 
-.product-image{
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	display: block;
-	opacity: 0;
-	transition: opacity 300ms ease-in-out, transform 300ms ease;
+.card .btn-success {
+	background-color: #28a745;
+	color: white;
 }
 
-.product-image.loaded{
-	opacity: 1;
+.card .btn-success:hover {
+	background-color: #218838;
 }
 
-@keyframes shimmer{
-	0%{ background-position: -200% 0; }
-	100%{ background-position: 200% 0; }
+.card .btn-warning {
+	background-color: #ffc107;
+	color: #212529;
 }
 
-/* show light border and subtle shadow for a neat thumbnail */
-.card {
-	border: 1px solid rgba(0,0,0,0.06);
-	box-shadow: 0 6px 18px rgba(10,20,20,0.04);
+.card .btn-warning:hover {
+	background-color: #e0a800;
 }
 
-/* Ensure carousel images fully cover their area and resize responsively */
+.card .btn-danger {
+	background-color: #dc3545;
+	color: white;
+}
+
+.card .btn-danger:hover {
+	background-color: #c82333;
+}
+
+/* Asegurar carousel images fully cover */
 .carousel .carousel-inner,
 .carousel .carousel-item,
 .carousel .carousel-item img {
@@ -161,5 +241,18 @@
 	.carousel .carousel-item img {
 		height: 40vh;
 	}
+	
+	.card-body {
+		padding: 1rem;
+	}
+	
+	.card .actions {
+		gap: 0.25rem;
+	}
+	
+	.card .btn {
+		min-width: 80px;
+		padding: 0.4rem 0.5rem;
+		font-size: 0.85rem;
+	}
 }
-
