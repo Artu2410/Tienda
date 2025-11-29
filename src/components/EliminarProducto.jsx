@@ -15,7 +15,7 @@ function EliminarProducto() {
     setCargando(true);
     try {
       const respuesta = await
-      fetch(`https://68f82c74deff18f212b557ba.mockapi.io/api/productos/${producto.id}`, {
+      fetch(`https://68d482e3214be68f8c696ae2.mockapi.io/api/productos/${producto.id}`, {
         method: 'DELETE',
       });
      

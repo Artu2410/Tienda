@@ -1,8 +1,8 @@
 /* ===== NAVBAR ===== */
 nav {
-  background-color:darkolivegreen;
+  background-color: #20B2AA;
   padding: 1rem 2rem;
-  box-shadow: 0px 0px 2px 1px black;
+  box-shadow: 0px 0px 2px 1px rgba(32, 178, 170, 0.3);
 }
 
 nav ul {
@@ -42,15 +42,16 @@ nav a:hover {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #f9f9f9;
+  background-color: #F0FFFE;
   padding: 1rem;
   border-radius: 5px;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 8px rgba(32, 178, 170, 0.15);
 }
 
 footer {
-  background-color: lightgrey;
+  background-color: #E0F7F6;
   text-align: center;
+  color: #20B2AA;
 }
 
 main {
@@ -70,30 +71,30 @@ main {
   transition: all 0.3s ease;
 }
 
-/* BOTÓN EDITAR - Verde */
+/* BOTÓN EDITAR - Turquesa */
 .btn-editar {
-  background: #2E7D32;
+  background: #20B2AA;
   color: white;
-  border-color: #2E7D32;
+  border-color: #20B2AA;
 }
 
 .btn-editar:hover {
-  background: #2E7D32;
+  background: #1A8A7E;
   color: white;
-  box-shadow: 5 0 6px rgba(0, 0, 0, 0.2); /* Shadow negro con blur */
+  box-shadow: 0 4px 8px rgba(32, 178, 170, 0.3);
   transform: translateY(-1px);
 }
 
-/* BOTÓN ELIMINAR - Rojo */
+/* BOTÓN ELIMINAR - Rojo Pastel */
 .btn-eliminar {
-  background: #C62828;
+  background: #FF9999;
   color: white;
-  border-color: #C62828;
+  border-color: #FF9999;
 }
 
 .btn-eliminar:hover {
-  background: #C62828;
+  background: #FF7777;
   color: white;
-  box-shadow: 5 0 6px rgba(0, 0, 0, 0.2); /* Shadow negro con blur */
+  box-shadow: 0 4px 8px rgba(255, 153, 153, 0.3);
   transform: translateY(-1px);
 }

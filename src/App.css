@@ -156,14 +156,12 @@
 }
 
 .card-text.fw-bold {
-	font-weight: 600;
-	color: #28a745;
-	font-size: 1.1rem;
-	-webkit-line-clamp: unset;
-	line-clamp: unset;
-}
-
-/* Botones área - fija al fondo */
+  font-weight: 600;
+  color: #20B2AA;
+  font-size: 1.1rem;
+  -webkit-line-clamp: unset;
+  line-clamp: unset;
+}/* Botones área - fija al fondo */
 .card .actions {
 	margin-top: auto;
 	display: flex;

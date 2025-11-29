@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 // Crear el contexto
 export const CartContext = createContext();
@@ -7,6 +8,22 @@ export const CartContext = createContext();
 export function CartProvider({ children }) {
   // Estado del carrito
   const [carrito, setCarrito] = useState([]);
+  const [cargaCompleta, setCargaCompleta] = useState(false); // Flag o bandera
+
+  useEffect(() => {
+    const carritoGuardado = localStorage.getItem("carrito"); 
+    if (carritoGuardado) {
+      setCarrito(JSON.parse(carritoGuardado));
+    }
+    setCargaCompleta(true); // Marca que la carga inicial ha terminado
+  }, []);       
+
+  // cada vez que carrito cambie, guardarlo en localStorage
+  useEffect(() => {
+    if (cargaCompleta) { // Solo guarda en localStorage si la carga inicial ha terminado
+      localStorage.setItem("carrito", JSON.stringify(carrito));
+    }
+  }, [carrito, cargaCompleta]);
 
   // Funciones para el carrito
 const agregarAlCarrito = (producto) => {
@@ -23,7 +40,7 @@ const agregarAlCarrito = (producto) => {
         return [...prevCarrito, { ...producto, cantidad: 1 }];
       }
     });
-    alert(`Producto ${producto.nombre} agregado.`);
+    toast(`Producto ${producto.nombre} agregado.`);
   };
 
   const vaciarCarrito = () => {
@@ -31,12 +48,11 @@ const agregarAlCarrito = (producto) => {
   };
 
   const eliminarDelCarrito = (productoId) => {
-    // Usar la versión funcional para evitar dependencias de cierre
-    setCarrito(prev => prev.filter(item => item.id !== productoId));
+    setCarrito(carrito.filter(item => item.id !== productoId));
   };
 
    const quitarCantidad = (idProducto) => {
-    setCarrito(prev => prev.map(producto => {
+    const carritoActualizado = carrito.map(producto => {
       if (producto.id === idProducto) {
         const cantidadActual = producto.cantidad || 1;
         if (cantidadActual === 1) {
@@ -45,11 +61,14 @@ const agregarAlCarrito = (producto) => {
         return { ...producto, cantidad: cantidadActual - 1 };
       }
       return producto;
-    }).filter(producto => producto !== null));
+    }).filter(producto => producto !== null);
+
+
+    setCarrito(carritoActualizado);
   };
 
     const agregarCantidad = (idProducto) => {
-    setCarrito(prev => prev.map(producto => {
+    const nuevoCarrito = carrito.map(producto => {
       if (producto.id === idProducto) {
         return {
           ...producto,
@@ -57,7 +76,8 @@ const agregarAlCarrito = (producto) => {
         };
       }
       return producto;
-    }));
+    });
+    setCarrito(nuevoCarrito);
   };
 
   const total = carrito.reduce((sum, item) => {

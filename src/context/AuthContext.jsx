@@ -6,6 +6,7 @@ export const AuthContext = createContext();
 // Proveedor de autenticación
 export function AuthProvider({ children }) {
   const [usuario, setUsuario] = useState(null);
+  const [cargando, setCargando] = useState(true);
 
   // Verificar token al cargar la aplicación
   useEffect(() => {
@@ -18,17 +19,19 @@ export function AuthProvider({ children }) {
         email: emailGuardado || "",
       });
     }
+    setCargando(false);
   }, []);
 
   // Función para iniciar sesión
-  const iniciarSesion = (username) => {
+  const iniciarSesion = (username, emailIngresado) => {
     const token = `fake-token-${username}`;
     localStorage.setItem("authToken", token);
+    localStorage.setItem("authEmail", emailIngresado);
 
-    const emailGuardado = localStorage.getItem("authEmail");
+    
     setUsuario({
       nombre: username,
-      email: emailGuardado || "",
+      email: emailIngresado || "",
     });
   };
 
@@ -44,7 +47,8 @@ export function AuthProvider({ children }) {
     iniciarSesion,
     cerrarSesion,
     isAuthenticated: !!usuario, // ← Propiedad computada
-    esAdmin: usuario?.nombre === 'admin', 
+    esAdmin: usuario?.nombre === 'admin',
+    cargando, 
 
   };
 

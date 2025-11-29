@@ -10,8 +10,7 @@ function Navbar() {
   const { vaciarCarrito, carrito } = useCartContext();
   const navigate = useNavigate();
 
-  // Contador seguro: convierte cantidad a Number para evitar NaN
-  const totalItemsCarrito = carrito.reduce((total, item) => total + (Number(item.cantidad) || 0), 0);
+  const totalItemsCarrito = carrito.reduce((total, item) => total + item.cantidad, 0);
 
   const manejarCerrarSesion = () => {
     navigate("/productos");
@@ -98,10 +97,9 @@ export default Navbar;
 
 // Styled Components actualizados
 const NavbarContainer = styled.nav`
-  /* Paleta turquesa y pasteles para un look profesional y de salud */
-  background: linear-gradient(90deg, #18a999 0%, #9be9d8 100%) !important;
-  padding: 0.6rem 1rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  background: linear-gradient(90deg, #0D9488 0%, #14B8A6 50%, #7EE8D8 100%);
+  padding: 0.5rem 1rem;
+  box-shadow: 0 2px 8px rgba(13, 148, 136, 0.2);
 `;
 
 const NavbarSpacer = styled.div`
@@ -113,47 +111,44 @@ const NavbarSpacer = styled.div`
 `;
 
 const Logo = styled(Link)`
-  color: #ffffff !important;
-  font-size: 1.6rem;
-  font-weight: 700;
+  color: white !important;
+  font-size: 1.5rem;
+  font-weight: bold;
   text-decoration: none;
-  letter-spacing: 0.4px;
-  display: inline-block;
-
+ 
   &:hover {
-    color: #e6fff9 !important;
-    text-decoration: none;
+    color: white !important;
   }
 `;
 
 // NavLink normal (para usuarios)
 const NavLink = styled(Link)`
-  color: #013232 !important; /* texto oscuro sobre pastel */
+  color: white !important;
   text-decoration: none;
   padding: 0.5rem 1rem;
-
+ 
   &:hover {
-    color: #075a55 !important;
+    color: white !important;
     text-decoration: underline;
   }
 `;
 
 // NavLink especial para admin
 const NavLinkAdmin = styled(Link)`
-  color: #073b3b !important;
+  color: black !important;
   text-decoration: none;
   padding: 0.5rem 1rem;
-  font-weight: 600;
-
+  font-weight: bold;
+ 
   &:hover {
-    color: #ffe082 !important; /* pastel amarillo para énfasis */
+    color: gold !important;
     text-decoration: underline;
   }
 `;
 
 const Bienvenida = styled.span`
-  color: #013232;
-  font-size: 0.95rem;
+  color: white;
+  font-size: 0.9rem;
   margin: 0;
   white-space: nowrap;
 
@@ -164,18 +159,16 @@ const Bienvenida = styled.span`
 
 const BotonCerrarSesion = styled.button`
   background: transparent;
-  color: #013232;
-  border: 1px solid rgba(1,50,50,0.08);
-  border-radius: 6px;
-  padding: 0.45rem 0.9rem;
+  color: white;
+  border: 1px solid white;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
   cursor: pointer;
   white-space: nowrap;
-  font-weight: 600;
-
+ 
   &:hover {
-    background: #ffffff;
-    color: #18a999;
-    border-color: rgba(1,50,50,0.12);
+    background: white;
+    color: #20B2AA;
   }
 
   @media (max-width: 991.98px) {
@@ -209,7 +202,7 @@ const ContadorCarrito = styled.span`
   position: absolute;
   top: -5px;
   right: -5px;
-  background: #ff6b6b; /* acento pastel para visibilidad */
+  background: red;
   color: white;
   border-radius: 50%;
   width: 20px;
@@ -218,7 +211,7 @@ const ContadorCarrito = styled.span`
   align-items: center;
   justify-content: center;
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: bold;
 `;
 
 const SeccionUsuario = styled.div`

@@ -8,19 +8,19 @@ const ProductoDetalle = () => {
     const location = useLocation();
     const producto = location.state?.producto;
  
-    if (!producto) {
-        return (
-            <div className="container-md py-3">
-                <div className="alert alert-warning">
-                    <h4>Producto no encontrado</h4>
-                    <p>No se pudo cargar la información del producto. Visita la lista de productos para ver los detalles.</p>
-                    <Link to="/productos" className="btn btn-primary">
-                        Volver a Productos
-                    </Link>
-                </div>
-            </div>
-        );
-    }
+    // if (!producto) {
+    //     return (
+    //         <div className="container-md py-3">
+    //             <div className="alert alert-warning">
+    //                 <h4>Producto no encontrado</h4>
+    //                 <p>No se pudo cargar la información del producto</p>
+    //                 <Link to="/carrito" className="btn btn-primary">
+    //                     Volver a Productos
+    //                 </Link>
+    //             </div>
+    //         </div>
+    //     );
+    // }
  
     return(
         <>

@@ -19,6 +19,11 @@ import EliminarProducto from './components/EliminarProducto';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; 
+
+
+
 function App() {
   return (
     <div>
@@ -66,6 +71,14 @@ function App() {
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
             <Footer />
+            <ToastContainer
+              position="top-center"
+              autoClose={3000}
+              hideProgressBar={false}
+              closeOnClick
+              draggable
+              pauseOnHover
+            />
           </ProductsProvider>
         </CartProvider>
       </AuthProvider>
